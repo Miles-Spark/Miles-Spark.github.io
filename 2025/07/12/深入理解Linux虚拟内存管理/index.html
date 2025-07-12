@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Miles">
+    
+    <title>
+        
+            深入理解Linux虚拟内存管理 |
+        
+        Miles&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/logo.svg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Miles's Blog","author":"Miles","avatar":"/images/avatar.svg","logo":"/images/logo.svg","favicon":"/images/logo.svg"},"menu":{"home":"/","archives":"/archives","tags":"/tags","categories":"/categories","about":"/about"},"first_screen":{"enable":false,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":false,"tag":false,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false,"share":false,"reward":{"enable":false,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"local_search":{"enable":false,"preload":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":"3.3.2"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":false},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":false},"footer":{"since":2020,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original post title","author":"Original post author","link":"Original post link"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.svg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Miles&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                HOME
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                ARCHIVES
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/tags">
+                                
+                                TAGS
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/categories">
+                                
+                                CATEGORIES
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                ABOUT
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            HOME
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            ARCHIVES
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/tags">
+                            
+                            TAGS
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/categories">
+                            
+                            CATEGORIES
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                            ABOUT
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        深入理解Linux虚拟内存管理
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.svg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Miles</span>
+                                
+                                    <span class="author-badge">Lv1</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025-07-12 19:15:01</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Sat Jul 12 2025 22:42:41 GMT+0800">2025-07-12 22:42:41</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">内存管理</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h2 id="1-到底什么是虚拟内存地址"><a href="#1-到底什么是虚拟内存地址" class="headerlink" title="1.到底什么是虚拟内存地址"></a>1.到底什么是虚拟内存地址</h2><p>这里我们以 Intel Core i7 处理器为例，64 位虚拟地址的格式为：全局页目录项（9 位）+ 上层页目录项（9 位）+ 中间页目录项（9 位）+ 页表项（9 位）+ 页内偏移（12 位）共 48 位组成的虚拟内存地址。</p>
+<p>32 位虚拟地址的格式为：页目录项（10 位）+ 页表项（10 位） + 页内偏移（12 位）。</p>
+<h2 id="2-为什么要使用虚拟地址访问内存"><a href="#2-为什么要使用虚拟地址访问内存" class="headerlink" title="2.为什么要使用虚拟地址访问内存"></a>2.为什么要使用虚拟地址访问内存</h2><p>首先虚拟地址可以将扩大物理空间，使得系统可以运行比物理内存更大的进程。其次对于每个进程操作系统都会为其分配一个独立的虚拟内存空间，每个虚拟内存空间都会有一张页表来映射物理内存空间，对于每个进程来说页表是私有的，进程之间不可以访问对方的页表，这也就解决了多进程内存访问冲突的问题了。最后，在页表中不仅有页号与物理块号的映射，也会标记一些其他信息，比如说 标记当前页面是否在内存中，页面的读写权限的。就页面读写权限来说使得地址访问更加安全。</p>
+<h2 id="3-Linux-进程虚拟内存空间"><a href="#3-Linux-进程虚拟内存空间" class="headerlink" title="3.Linux 进程虚拟内存空间"></a>3.Linux 进程虚拟内存空间</h2><p>在 32 位机器上虚拟内存分布</p>
+<p>在 32 位机器上，指针的寻址范围为 2^32，所能表达的虚拟内存空间为 4 GB。所以在 32 位机器上进程的虚拟内存地址范围为：0x0000 0000 - 0xFFFF FFFF。</p>
+<p>其中用户态虚拟内存空间为 3 GB，虚拟内存地址范围为：0x0000 0000 - 0xC000 000 。</p>
+<p>内核态虚拟内存空间为 1 GB，虚拟内存地址范围为：0xC000 000 - 0xFFFF FFFF。</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/QAscb4puAohySYxygd9cGes9nSd.png" ></p>
+<p>64 位机器上进程虚拟内存空间分布</p>
+<p>那么我们理所应当的会认为在 64 位机器上，指针的寻址范围为 2^64，所能表达的虚拟内存空间为 16 EB 。虚拟内存地址范围为：0x0000 0000 0000 0000 0000  - 0xFFFF FFFF FFFF FFFF 。事实上在目前的 64 位系统下只使用了 48 位来描述虚拟内存空间，寻址范围为 2^48 所能表达的虚拟内存空间为 256TB。</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Lk7bbIU5AoFISYxRkZMcgnzUnth.png" ></p>
+<h2 id="4-进程虚拟内存空间的管理"><a href="#4-进程虚拟内存空间的管理" class="headerlink" title="4.进程虚拟内存空间的管理"></a>4.进程虚拟内存空间的管理</h2><p>比较关键的数据结构</p>
+<p>进程描述符 task_struct</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/DRs0bCiMnoUsbxxxszecCOC7ncd.png" ></p>
+<p>内存描述符 mm_struct</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/VKTEbuxTbo0wo6xgCi5cN1Jdnbc.png" ></p>
+<p>mm_struct 结构体中的 total_vm 表示在进程虚拟内存空间中总共与物理内存映射的页的总数。</p>
+<p>locked_vm 就是被锁定不能换出的内存页总数</p>
+<p>pinned_vm 表示既不能换出，也不能移动的内存页总数。</p>
+<p>data_vm 表示数据段中映射的内存页数目</p>
+<p>exec_vm 是代码段中存放可执行文件的内存页数目</p>
+<p>stack_vm 是栈中所映射的内存页数目</p>
+<p>子进程在新创建出来之后它的虚拟内存空间是和父进程的虚拟内存空间一模一样的，直接拷贝过来。</p>
+<h3 id="如何划分"><a href="#如何划分" class="headerlink" title="如何划分"></a>如何划分</h3><p>内核如何划分用户态和内核态虚拟内存空间</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/MArEbTZbaoQfqmxoqVncnoJEnAg.png" ></p>
+<h3 id="如何布局"><a href="#如何布局" class="headerlink" title="如何布局"></a>如何布局</h3><p>内核如何布局进程虚拟内存空间（划分进程虚拟内存分区）</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/AlvobbbEmocTorxxBd2c1ssznxd.png" ></p>
+<h3 id="如何管理"><a href="#如何管理" class="headerlink" title="如何管理"></a>如何管理</h3><p>内核如何管理虚拟内存区域（描述虚拟内存）</p>
+<p>vm_area_struct 描述符，正是这个结构体描述了这些虚拟内存区域 VMA（virtual memory area）。</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/GcE9bkA4vofrIWxwBalc1Gornuw.png" ></p>
+<p>vm_area_struct 结构描述的是 [vm_start，vm_end)这样一段左闭右开的虚拟内存区域。</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Hy7GbXEmPoNGmdxtjjBcrZmsngc.png" ></p>
+<h3 id="访问权限和行为规范"><a href="#访问权限和行为规范" class="headerlink" title="访问权限和行为规范"></a>访问权限和行为规范</h3><p>定义虚拟内存区域的访问权限和行为规范</p>
+<p>vm_page_prot 和 vm_flags 都是用来标记 vm_area_struct 结构表示的这块虚拟内存区域的访问权限和行为规范。</p>
+<p>vm_page_prot 偏向于定义底层内存管理架构中页这一级别的访问控制权限它可以直接应用在底层页表中</p>
+<p>vm_flags 则偏向于定于整个虚拟内存区域的访问权限以及行为规范描述的是虚拟内存区域中的整体信息，而不是虚拟内存区域中具体的某个独立页面描述的是虚拟内存区域中的整体信息，可以通过 vma-&gt;vm_page_prot &#x3D;vm_get_page_prot(vma-&gt;vm_flags)实现到具体页面访问权限 vm_page_prot 的转换。</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/FsMTbfOF4oJMTVx100WclVdZnub.png" ></p>
+<h3 id="映射关系"><a href="#映射关系" class="headerlink" title="映射关系"></a>映射关系</h3><p>关联内存映射中的映射关系</p>
+<p>anon_vma, vm_file,vm_pgoff</p>
+<p>当我们调用 malloc 申请内存时,如果申请的是小块内存(低于 128K)则会使用 do_brk()系统调用通过调</p>
+<p>整堆中的 brk 指针大小来增加或者回收堆内存。</p>
+<p>如果申请的是比较大块的内存(超过 128K)时,则会调用 mmap 在上图虚拟内存空间中的文件映射与匿</p>
+<p>名映射区创建出一块 VMA 内存区域(这里是匿名映射)。这块匿名映射区域就用 struct anon_vma 结构</p>
+<p>表示。</p>
+<p>当调用 mmap 进行文件映射时,vm_file 属性就用来关联被映射的文件。这样一来虚拟内存区域就与映射</p>
+<p>文件关联了起来。vm_pgoff 则表示映射进虚拟内存中的文件内容在文件中的偏移。</p>
+<p>当然在匿名映射中,vm_area_struct 结构中的 vm_file 就为 null,vm_pgoff 也就没有了意义。</p>
+<p>vm_private_data 则用于存储 VMA 中的私有数据。具体的存储内容科和内存映射的类型有关,我们暂不展开论述。</p>
+<h3 id="相关操作"><a href="#相关操作" class="headerlink" title="相关操作"></a>相关操作</h3><p>针对虚拟内存区域的相关操作</p>
+<p>struct vm_area_struct 结构中还有一个 vm_ops 用来指向针对虚拟内存区域 VMA 的相关操作的函数指针。</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Q5lVbd6owo7X7SxxaLoczPi0nEd.png" ></p>
+<h3 id="如何被组织的"><a href="#如何被组织的" class="headerlink" title="如何被组织的"></a>如何被组织的</h3><p>虚拟内存区域在内核中是如何被组织的</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/RAwibhAL2oLt64x4DFwc88D3n2e.png" ></p>
+<p>mm_struct 中的页表会映射所有 VMA 的物理地址，VMA 则提供了虚拟地址范围和访问权限等信息。</p>
+<p>vm_area_struct 会有两种组织形式一种是双向链表用于高效的遍历，另一种就是红黑树用于高效的查找。</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/JIr0bpwr3ojFQaxiowfcNEe3nRf.png" ></p>
+<h2 id="5-程序编译后的二进制文件如何映射到虚拟内存空间中"><a href="#5-程序编译后的二进制文件如何映射到虚拟内存空间中" class="headerlink" title="5.程序编译后的二进制文件如何映射到虚拟内存空间中"></a>5.程序编译后的二进制文件如何映射到虚拟内存空间中</h2><p>代码进行编译后会生成 elf 格式的二进制文件，代码在运行的时候会从磁盘空间 section 段映射到内存 segment 段， 具体是通过函数 load_elf_binary()函数来映射的，并且初始化了 mm_struct 内存描述符和 vm_area_strcut 虚拟内存区域</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/ECGXbA4PQo30GixuVQecD2vInBe.png" ></p>
+<p>setup_new_exec: 设置虚拟内存的起始位置</p>
+<p>setup_arg_pages:　初始化栈和 vm_area_struct 虚拟区域</p>
+<p>elf_map :　映射 elf 格式的代码到内存虚拟空间</p>
+<p>set_brk:初始化堆以及 vm_area_struct 结构</p>
+<h2 id="6-内核虚拟内存空间"><a href="#6-内核虚拟内存空间" class="headerlink" title="6.内核虚拟内存空间"></a>6.内核虚拟内存空间</h2><p>不同进程之间共享同一个内核空间。</p>
+<h3 id="32-位体系下内核空间分布"><a href="#32-位体系下内核空间分布" class="headerlink" title="32 位体系下内核空间分布"></a>32 位体系下内核空间分布</h3><h4 id="直接映射区"><a href="#直接映射区" class="headerlink" title="直接映射区"></a>直接映射区</h4><p>在大小为 1G 的内核虚拟空间中，前 896m 为直接映射区或线性映射区 ，之所以叫直接映射区是因为这块地址会映射到一整块地址连续的 896M 的物理空间， 地址范围是 3G ~ 3G+896M；</p>
+<p>在这段 896M 的物理内存中， 前 1M 在系统启动时被系统占用； 1M 之后存储的是代码段，data 段，bass 段。在创建进程时还会在该段区域存储 task_struct 进程描述符、 mm_struct　进程空间描述符、vm_area_struct 虚拟空间描述符；</p>
+<p>还有进程创建完毕后也是在这段区域创建内核栈，内核栈的大小固定（2 页大小）</p>
+<p>由于计算机体系受硬件制约，在 x86 体系下， ISA 总线的 DMA（直接内存存取）只能在直接映射区前 16M 进行寻址，在物理内存中这前 16M 空间就被成为 ZONE_DMA 区域，后 16~896M 空间则被称为 ZONGE_NORMAL 区域。在虚拟内存中分别被称为 DMA,NORMAL 映射区</p>
+<h4 id="ZONE-HIGHMEM-高端内存"><a href="#ZONE-HIGHMEM-高端内存" class="headerlink" title="ZONE_HIGHMEM 高端内存"></a>ZONE_HIGHMEM 高端内存</h4><p>在物理内存 896M 以上的空间就是 ZONE_HIGHTMEM 空间，这段区域无法通过直接映射的方式映射到虚拟空间中，只能通过动态映射的方式一段一段映射</p>
+<p>内核虚拟内存空间中的 3G + 896M 这块地址在内核中定义为 high_memory，high_memory 往上有一段 8M 大小的内存空洞。空洞范围为 high_memory 到 VMALLOC_START 。</p>
+<h4 id="vmalloc-动态映射区"><a href="#vmalloc-动态映射区" class="headerlink" title="vmalloc 动态映射区"></a>vmalloc 动态映射区</h4><p>接下来 VMALLOC_START 到 VMALLOC_END 之间的这块区域称为动态映射区，采用动态映射的方式映射物理内存中的高端内存。</p>
+<p>在 PKMAP_BASE 到 FIXADDR_START 之间的这段空间称为永久映射区。在内核的这段虚拟地址空间中允许建立与物理高端内存的长期映射关系。</p>
+<h4 id="固定映射区"><a href="#固定映射区" class="headerlink" title="固定映射区"></a>固定映射区</h4><p>下一个区域为固定映射区，区域范围为：FIXADDR_START 到 FIXADDR_TOP。在固定映射区中的虚拟内存地址可以自由映射到物理内存的高端地址上，但是与动态映射区以及永久映射区不同的是，在固定映射区中虚拟地址是固定的，而被映射的物理地址是可以改变的。也就是说，有些虚拟地址在编译的时候就固定下来了，是在内核启动过程中被确定的，而这些虚拟地址对应的物理地址不是固定的。</p>
+<h4 id="临时映射区"><a href="#临时映射区" class="headerlink" title="临时映射区"></a>临时映射区</h4><p>临时将缓存页临时映射到内核空间的一段虚拟地址上</p>
+<h4 id="32-位体系结构下-Linux-虚拟内存空间整体布局"><a href="#32-位体系结构下-Linux-虚拟内存空间整体布局" class="headerlink" title="32 位体系结构下 Linux 虚拟内存空间整体布局"></a>32 位体系结构下 Linux 虚拟内存空间整体布局</h4><p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/G9UtbXrKFoUuEHx1RencvKAVnog.png" ></p>
+<h3 id="64-位体系内核虚拟内存空间布局"><a href="#64-位体系内核虚拟内存空间布局" class="headerlink" title="64 位体系内核虚拟内存空间布局"></a>64 位体系内核虚拟内存空间布局</h3><p>在 64 位操作系统中使用 48 位来表示虚拟内存空间，其中低 16 位表示用户进程虚拟内存空间， 高 16 位表示内核虚拟内存空间，内存虚拟空间足足有 128T 可以说是非常大 可以随意挥霍</p>
+<p>在空间布局上，首先是一个 8T 的内存空洞，然后紧接着 64T 的直接映射区，之后是 32T 的动态映射区，之后是 1T 的虚拟内存映射区，最后是 512M 的代码区</p>
+<p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Imjcb5XBHohWQbxCRhhclSJcn7e.png" ></p>
+<h2 id="7-物理内存"><a href="#7-物理内存" class="headerlink" title="7.物理内存"></a>7.物理内存</h2><p>我们平时称的内存 也叫做随机访问存储器，也就是 RAM，RAM 分为两类，一个是 SRAM 静态 RAM 用于 CPU 高速缓存，特点是速度快，容量小，造价高； 另一个是 DRAM 动态 RAM ，就是我们常说的主存，特点是访问稍慢，容量大，造价低。</p>
+<h4 id="DRAM-的访问"><a href="#DRAM-的访问" class="headerlink" title="DRAM 的访问"></a>DRAM 的访问</h4><p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/BogPbyRFgoCRvKxdvfxcj6P7nRb.png" ></p>
+<p>我们所说的主存有多个存储模块组成，每个存储模块包含 8 个 DRAM 芯片，每个 DRAM 芯片是一个二维结构，每个 DRAM 有两个地址引脚，通过 CAS , RAS 来访问 DRAM 芯片的基础单元 supercell, 每个 supercell 为一个字节大小；访问一个 Supercell 的具体流程如下：</p>
+<ol>
+<li>首先存储控制器将行地址 RAS &#x3D; 2 通过地址引脚发送给 DRAM 芯片。</li>
+<li>DRAM 芯片根据 RAS &#x3D; 2 将二维矩阵中的第二行的全部内容拷贝到内部行缓冲区中。</li>
+<li>接下来存储控制器会通过地址引脚发送 CAS &#x3D; 2 到 DRAM 芯片中。</li>
+<li>DRAM 芯片从内部行缓冲区中根据 CAS &#x3D; 2 拷贝出第二列的 supercell 并通过数据引脚发送给存储控制器。</li>
+</ol>
+<p>每次存储模块访问都会广播 CAS, RAS 数据 从 8 个 DRAM 中读取 8 个字节数据返回。</p>
+<h4 id="CPU-访问主存的过程"><a href="#CPU-访问主存的过程" class="headerlink" title="CPU 访问主存的过程"></a>CPU 访问主存的过程</h4><p><img   src="/2025/07/12/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/ZTQvbdDzroMr2AxgTNAcTw6Ontd.png" ></p>
+<p>CPU 与内存之间的数据交互是通过总线（bus）完成的，而数据在总线上的传送是通过一系列的步骤完成的，这些步骤称为总线事务（bus transaction）。</p>
+<p>其中数据从内存传送到 CPU 称之为读事务（read transaction），数据从 CPU 传送到内存称之为写事务（write transaction）。</p>
+<p>其中系统总线是连接 CPU 与 IO bridge 的，存储总线是来连接 IO bridge 和主存的。 IO bridge 其实起的作用就是转换不同总线上的电子信号。</p>
+
+                    
+                </div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">内存管理</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/07/12/%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/"
+                                   title="测试图片显示"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">测试图片显示</span>
+                                        <span class="post-nav-item">Next posts</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="nav-text">1.到底什么是虚拟内存地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E8%AE%BF%E9%97%AE%E5%86%85%E5%AD%98"><span class="nav-text">2.为什么要使用虚拟地址访问内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Linux-%E8%BF%9B%E7%A8%8B%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4"><span class="nav-text">3.Linux 进程虚拟内存空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%BF%9B%E7%A8%8B%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E7%9A%84%E7%AE%A1%E7%90%86"><span class="nav-text">4.进程虚拟内存空间的管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%92%E5%88%86"><span class="nav-text">如何划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%B8%83%E5%B1%80"><span class="nav-text">如何布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86"><span class="nav-text">如何管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E5%92%8C%E8%A1%8C%E4%B8%BA%E8%A7%84%E8%8C%83"><span class="nav-text">访问权限和行为规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"><span class="nav-text">映射关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="nav-text">相关操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A2%AB%E7%BB%84%E7%BB%87%E7%9A%84"><span class="nav-text">如何被组织的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E5%90%8E%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E5%A6%82%E4%BD%95%E6%98%A0%E5%B0%84%E5%88%B0%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E4%B8%AD"><span class="nav-text">5.程序编译后的二进制文件如何映射到虚拟内存空间中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%86%85%E6%A0%B8%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4"><span class="nav-text">6.内核虚拟内存空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E4%BD%8D%E4%BD%93%E7%B3%BB%E4%B8%8B%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4%E5%88%86%E5%B8%83"><span class="nav-text">32 位体系下内核空间分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84%E5%8C%BA"><span class="nav-text">直接映射区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZONE-HIGHMEM-%E9%AB%98%E7%AB%AF%E5%86%85%E5%AD%98"><span class="nav-text">ZONE_HIGHMEM 高端内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vmalloc-%E5%8A%A8%E6%80%81%E6%98%A0%E5%B0%84%E5%8C%BA"><span class="nav-text">vmalloc 动态映射区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E6%98%A0%E5%B0%84%E5%8C%BA"><span class="nav-text">固定映射区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E6%98%A0%E5%B0%84%E5%8C%BA"><span class="nav-text">临时映射区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#32-%E4%BD%8D%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8B-Linux-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E6%95%B4%E4%BD%93%E5%B8%83%E5%B1%80"><span class="nav-text">32 位体系结构下 Linux 虚拟内存空间整体布局</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-%E4%BD%8D%E4%BD%93%E7%B3%BB%E5%86%85%E6%A0%B8%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E5%B8%83%E5%B1%80"><span class="nav-text">64 位体系内核虚拟内存空间布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98"><span class="nav-text">7.物理内存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DRAM-%E7%9A%84%E8%AE%BF%E9%97%AE"><span class="nav-text">DRAM 的访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-%E8%AE%BF%E9%97%AE%E4%B8%BB%E5%AD%98%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">CPU 访问主存的过程</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2025
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Miles</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="nav-text">1.到底什么是虚拟内存地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E8%AE%BF%E9%97%AE%E5%86%85%E5%AD%98"><span class="nav-text">2.为什么要使用虚拟地址访问内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Linux-%E8%BF%9B%E7%A8%8B%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4"><span class="nav-text">3.Linux 进程虚拟内存空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%BF%9B%E7%A8%8B%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E7%9A%84%E7%AE%A1%E7%90%86"><span class="nav-text">4.进程虚拟内存空间的管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%92%E5%88%86"><span class="nav-text">如何划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%B8%83%E5%B1%80"><span class="nav-text">如何布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86"><span class="nav-text">如何管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E5%92%8C%E8%A1%8C%E4%B8%BA%E8%A7%84%E8%8C%83"><span class="nav-text">访问权限和行为规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"><span class="nav-text">映射关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="nav-text">相关操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A2%AB%E7%BB%84%E7%BB%87%E7%9A%84"><span class="nav-text">如何被组织的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E5%90%8E%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E5%A6%82%E4%BD%95%E6%98%A0%E5%B0%84%E5%88%B0%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E4%B8%AD"><span class="nav-text">5.程序编译后的二进制文件如何映射到虚拟内存空间中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%86%85%E6%A0%B8%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4"><span class="nav-text">6.内核虚拟内存空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E4%BD%8D%E4%BD%93%E7%B3%BB%E4%B8%8B%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4%E5%88%86%E5%B8%83"><span class="nav-text">32 位体系下内核空间分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84%E5%8C%BA"><span class="nav-text">直接映射区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZONE-HIGHMEM-%E9%AB%98%E7%AB%AF%E5%86%85%E5%AD%98"><span class="nav-text">ZONE_HIGHMEM 高端内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vmalloc-%E5%8A%A8%E6%80%81%E6%98%A0%E5%B0%84%E5%8C%BA"><span class="nav-text">vmalloc 动态映射区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E6%98%A0%E5%B0%84%E5%8C%BA"><span class="nav-text">固定映射区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E6%98%A0%E5%B0%84%E5%8C%BA"><span class="nav-text">临时映射区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#32-%E4%BD%8D%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8B-Linux-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E6%95%B4%E4%BD%93%E5%B8%83%E5%B1%80"><span class="nav-text">32 位体系结构下 Linux 虚拟内存空间整体布局</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-%E4%BD%8D%E4%BD%93%E7%B3%BB%E5%86%85%E6%A0%B8%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E5%B8%83%E5%B1%80"><span class="nav-text">64 位体系内核虚拟内存空间布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98"><span class="nav-text">7.物理内存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DRAM-%E7%9A%84%E8%AE%BF%E9%97%AE"><span class="nav-text">DRAM 的访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-%E8%AE%BF%E9%97%AE%E4%B8%BB%E5%AD%98%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">CPU 访问主存的过程</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+
+<!-- lazyload -->
+
+
+<div class="">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+</body>
+</html>
