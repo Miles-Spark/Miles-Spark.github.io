@@ -104,14 +104,14 @@
 <p>在 32 位机器上，指针的寻址范围为 2^32，所能表达的虚拟内存空间为 4 GB。所以在 32 位机器上进程的虚拟内存地址范围为：0x0000 0000 - 0xFFFF FFFF。</p>
 <p>其中用户态虚拟内存空间为 3 GB，虚拟内存地址范围为：0x0000 0000 - 0xC000 000 。</p>
 <p>内核态虚拟内存空间为 1 GB，虚拟内存地址范围为：0xC000 000 - 0xFFFF FFFF。</p>
-<figure><img src=".%2FLinux%2FVKTEbuxTbo0wo6xgCi5cN1Jdnbc.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FVKTEbuxTbo0wo6xgCi5cN1Jdnbc.png" alt=""></figure>
 <p>64 位机器上进程虚拟内存空间分布</p>
 <p>那么我们理所应当的会认为在 64 位机器上，指针的寻址范围为 2^64，所能表达的虚拟内存空间为 16 EB 。虚拟内存地址范围为：0x0000 0000 0000 0000 0000  - 0xFFFF FFFF FFFF FFFF 。事实上在目前的 64 位系统下只使用了 48 位来描述虚拟内存空间，寻址范围为 2^48 所能表达的虚拟内存空间为 256TB。</p>
-<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FLk7bbIU5AoFISYxRkZMcgnzUnth.png" alt=""></figure>
+<figure><img src=".%2FLk7bbIU5AoFISYxRkZMcgnzUnth.png" alt=""></figure>
 <h2 id="4-进程虚拟内存空间的管理">4.进程虚拟内存空间的管理</h2>
 <p>比较关键的数据结构</p>
 <p>进程描述符 task_struct</p>
-<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FDRs0bCiMnoUsbxxxszecCOC7ncd.png" alt=""></figure>
+<figure><img src=".%2FDRs0bCiMnoUsbxxxszecCOC7ncd.png" alt=""></figure>
 <p>内存描述符 mm_struct</p>
 <figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FVKTEbuxTbo0wo6xgCi5cN1Jdnbc.png" alt=""></figure>
 <p>mm_struct 结构体中的 total_vm 表示在进程虚拟内存空间中总共与物理内存映射的页的总数。</p>
@@ -213,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/07/12/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="cmd03ny2s0002igpq6rnkhnl8" data-title="深入了解Linux虚拟内存管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/07/12/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="cmd04j8pt0001j0pqflk29b1n" data-title="深入了解Linux虚拟内存管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -303,7 +303,7 @@ themes：主题<br>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/07/12/%E2%80%9C%E4%BB%8E0%E5%88%B01%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93%E2%80%9C/" data-id="cmd03ny2r0001igpq1k3d0q9h" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/07/12/%E2%80%9C%E4%BB%8E0%E5%88%B01%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93%E2%80%9C/" data-id="cmd04j8pf0000j0pq1ad22uay" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -355,7 +355,7 @@ themes：主题<br>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/07/12/hello-world/" data-id="cmd03ny2l0000igpqaxip8fui" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/07/12/hello-world/" data-id="cmd04j8pu0002j0pqf5wd83lp" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
