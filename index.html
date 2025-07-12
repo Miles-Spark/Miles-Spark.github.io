@@ -71,46 +71,80 @@
       <div class="outer">
         <section id="main">
   
-    <article id="“-“从0到1搭建博客总结“" class="h-entry article article-type-“" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-“从0到1搭建博客总结“" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/07/12/%E2%80%9C%E4%BB%8E0%E5%88%B01%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93%E2%80%9C/" class="article-date">
-  <time class="dt-published" datetime="2025-07-12T06:10:26.000Z" itemprop="datePublished">2025-07-12</time>
+  <time class="dt-published" datetime="2025-07-12T06:10:26.782Z" itemprop="datePublished">2025-07-12</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/07/12/%E2%80%9C%E4%BB%8E0%E5%88%B01%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93%E2%80%9C/">“从0到1搭建博客总结“</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>一、搭建前的准备<br>搭建前需要下载这些软件：<br> Git：官网下载：<a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com/</a><br> Node.js 官网下载：<a target="_blank" rel="noopener" href="http://nodejs.cn/">http://nodejs.cn/</a></p>
-<p>二、安装hexo<br>1.Hexo 是一款基于 Node.js 的快速、简洁且高效的静态博客框架。在安装好Node.js后进入cmd命令行 输入指令安装hexo<br>npm install -g hexo-cli<br>2.新建一个文件夹放hexo项目，然后右键打开git bash<br>[图片]<br>输入指令创建hexo项目，如果在创建过程中报错，可能是网络问题可以挂个梯子清空文件夹再创建一次。<br>hexo init<br>3.输入指令启动hexo项目<br>hexo s<br>[图片]<br>新建的项目中有：<br> node_modules: 依赖包<br> public：存放生成的页面<br> scaffolds：生成文章的一些模板<br> source：用来存放你的文章<br> themes：主题<br> ** _config.yml: 博客的配置文件**</p>
-<p>4.在本地尝试将网站打开<br><a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a><br>[图片]<br>出现这个页面说明就成功了。</p>
-<p>三、将Hexo项目部署到Github上<br>将Hexo项目部署到GitHub上后就可以在多台设备上访问我们网站了。部署流程如下：<br>1.在GitHub上新建仓库<br>新建的仓库名必须是你的用户名.github.io，否则仓库名就是无效的无法部署成功。<br>[图片]</p>
-<p>2.生成ssh添加到Github<br>ssh提供了安全验证和免密操作，hexo项目与github远端仓库交互时不需要每次输入用户名和密码。<br>第一步：配置git 中的用户名和邮箱，打开cmd, 输入以下命令<br>git config –global user.name “yourname”<br>git config –global user.email “youremail”<br>这里的yourname输入你的GitHub用户名，youremail输入你GitHub的邮箱。这样GitHub才能知道你是不是对应它的账户。用户名为仓库的名称，邮箱为注册github的邮箱</p>
-<p>第二步： 在hexo项目的目录下 右键打开git bash 输入指令 生成公钥<br>ssh-keygen -t rsa -C 自己的邮箱地址<br>输入指令后 连敲击三次回车 出现下图就成功了<br>[图片]</p>
-<p>第三步，创建的公钥在.ssh目录中，打开该目录 id_rsa.pub 表示公用复制这里面的内容，然后进入github.<br>点击setings<br>[图片]<br>[图片]<br>发现我们需要一个密钥，把我们刚刚复制的密钥粘进去，title随便起<br>[图片]</p>
-<p>3.部署到github中<br>这一步，我们就可以将hexo和GitHub关联起来，也就是将hexo生成的文章部署到GitHub上。</p>
-<p>第一步 修改配置文件<br>[图片]<br>修改内存<br>deploy:<br>  type: git<br>  repo: <a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#104;&#x75;&#98;&#46;&#x63;&#111;&#x6d;">git@github.com</a>:goubin18&#x2F;goubin18.github.io.git &#x2F;&#x2F;（用自己的仓库路径代替）<br>  branch: main<br>[图片]</p>
-<p>第二步安装 deploy-git<br>npm install hexo-deployer-git –save<br>[图片]</p>
-<p>第三步 生成静态界面并推送到远端<br>hexo c   #清除缓存文件 db.json 和已生成的静态文件 public<br>hexo g       #生成网站静态文件到默认设置的 public 文件夹(hexo generate 的缩写)<br>hexo d       #自动生成网站静态文件，并部署到设定的仓库(hexo deploy 的缩写)<br>注意deploy时会让输个yes</p>
-<p>最后就可以使用xxx.github.io来访问你的博客啦</p>
-<p>[图片]</p>
+        <h2 id="一、搭建前的准备"><a href="#一、搭建前的准备" class="headerlink" title="一、搭建前的准备"></a>一、搭建前的准备</h2><p>搭建前需要下载这些软件：</p>
+<p> Git：官网下载：<a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com/</a> Node.js 官网下载：<a target="_blank" rel="noopener" href="http://nodejs.cn/">http://nodejs.cn/</a></p>
+<h2 id="二、安装hexo"><a href="#二、安装hexo" class="headerlink" title="二、安装hexo"></a>二、安装hexo</h2><p>1.Hexo 是一款基于 Node.js 的快速、简洁且高效的静态博客框架。在安装好Node.js后进入cmd命令行 输入指令安装hexo</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>2.新建一个文件夹放hexo项目，然后右键打开git bash</p>
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=MGE0ZmFjZGMyYzdmZWQ5ZjdiMzAxNzAzNjEyYWJhMmJfMTRHT2VldlowMExqSlhKUjlRRUpmY1pxMFdqd2IxQjJfVG9rZW46RU4yamJYRDhTb3JRMkl4YVJMS2NOaFFNbm5zXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<p>输入指令创建hexo项目，如果在创建过程中报错，可能是网络问题可以挂个梯子清空文件夹再创建一次。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">init</span></span><br></pre></td></tr></table></figure>
+
+<p>3.输入指令启动hexo项目</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=YTM4ZGU2MGQ3ZGU3NDk1YWQ5MzQ0YmI4YTNhNjVhYjJfMlJHOWFNQUFFT3VibXhFZGZldFZGdGlXZk51ejJ2OGRfVG9rZW46TElKNGJnRmRWb2VzRUJ4NlNQU2NrWUl0bkplXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<p>新建的项目中有：</p>
+<p> node_modules: 依赖包 public：存放生成的页面 scaffolds：生成文章的一些模板 source：用来存放你的文章 themes：主题 ** _config.yml: 博客的配置文件**</p>
+<p>4.在本地尝试将网站打开</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//localhost:4000/</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=Nzk3NTQ2NzU3MjRjZmU5MWI3NmQ4MTdkNmZmZDFhNjFfeXQ0TVZGOHRTaUVaSUlsRm93TzRSNFdEUGtPeHRibmZfVG9rZW46Q09RWGJqeVRrbzdGRXB4Um5CM2NYNlFqbkhWXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<p>出现这个页面说明就成功了。</p>
+<h2 id="三、将Hexo项目部署到Github上"><a href="#三、将Hexo项目部署到Github上" class="headerlink" title="三、将Hexo项目部署到Github上"></a>三、将Hexo项目部署到Github上</h2><p>将Hexo项目部署到GitHub上后就可以在多台设备上访问我们网站了。部署流程如下：</p>
+<h3 id="1-在GitHub上新建仓库"><a href="#1-在GitHub上新建仓库" class="headerlink" title="1.在GitHub上新建仓库"></a>1.在GitHub上新建仓库</h3><p>新建的仓库名必须是你的用户名.github.io，否则仓库名就是无效的无法部署成功。</p>
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=MmZiN2NjYjdmNjkzYWI2YmNiNTkxNTA1ZTA3MWY4ZmJfUTI5akVhNGZMbWpsdGFYSzZJTjNXVFVKRzNCOWVaYVhfVG9rZW46TUFNZWJRT09mb2NMM0J4U2tiY2M2blVEbjBiXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<h3 id="2-生成ssh添加到Github"><a href="#2-生成ssh添加到Github" class="headerlink" title="2.生成ssh添加到Github"></a>2.生成ssh添加到Github</h3><p>ssh提供了安全验证和免密操作，hexo项目与github远端仓库交互时不需要每次输入用户名和密码。</p>
+<p>第一步：配置git 中的用户名和邮箱，打开cmd, 输入以下命令</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="keyword">global</span> user.name <span class="string">&quot;yourname&quot;</span></span><br><span class="line">git config --<span class="keyword">global</span> user.email <span class="string">&quot;youremail&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的yourname输入你的GitHub用户名，youremail输入你GitHub的邮箱。这样GitHub才能知道你是不是对应它的账户。用户名为仓库的名称，邮箱为注册github的邮箱</p>
+<p>第二步： 在hexo项目的目录下 右键打开git bash 输入指令 生成公钥</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C 自己的邮箱地址</span><br></pre></td></tr></table></figure>
+
+<p>输入指令后 连敲击三次回车 出现下图就成功了</p>
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=YWU0MDQ1MDg0YzI1NDg2NThhN2NiYmI2ODkyMmU5MGZfTDNNNHU3S1VoWHBwanRLVjZlcmZnTU16WDRVQUNKUHNfVG9rZW46VWFBZGJIcHNtb0pid094ZEJaWWNaalJpbnJ4XzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<p>第三步，创建的公钥在.ssh目录中，打开该目录 id_rsa.pub 表示公用复制这里面的内容，然后进入github.</p>
+<p>点击setings</p>
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTk2OTc4YWMwMDE4ZDQ4NzRiYWMzYzlhMmZjOGZlNjFfcGpkMnRQV0lYN201YmYzbUJRM0ZHODBpUFk0bXJ4ZlhfVG9rZW46UnhITWJLS3hOb3JOSkN4NEtQM2M2T2QzbkNmXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTZhYmM1YzJmYzFhNzE4ZGZlNTMyNGVjMGM5Y2U1NjRfMHN5eVYzdTV5RlBwWDdKdVg0VFVWWVd3N09zVmlWWXVfVG9rZW46QXZNa2JVVjI3bzB4bDB4QXFSSWNNRHhWblNlXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<p>发现我们需要一个密钥，把我们刚刚复制的密钥粘进去，title随便起</p>
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=MjRiMjQyMWY2YjliYzg2NzFlYmViMjAxYmU4Mzc0YWRfMTZlNjg3U2ZrWXdVZmlhb3ZvQ05CemFFUnE2SFV1QlZfVG9rZW46Qmh4VGJ0MTdqbzQ1WTV4bm5jcGMyc0tSbmVmXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<h3 id="3-部署到github中"><a href="#3-部署到github中" class="headerlink" title="3.部署到github中"></a>3.部署到github中</h3><p>这一步，我们就可以将hexo和GitHub关联起来，也就是将hexo生成的文章部署到GitHub上。</p>
+<p>第一步 修改配置文件</p>
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=NzViYTdiMWQ5ZDk1Y2Y2NTczYWNkM2VmM2Y5ZDdlOWZfcXM4QmF2Z1EwUFNTTmQ2UU1hajFPVEd0TDZKd3dzZ09fVG9rZW46SlBYNmJ3RUQ4b080aHh4UnJwSWN5OEVDbnpkXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">修改内存</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:goubin18/goubin18.github.io.git <span class="comment">//（用自己的仓库路径代替）</span></span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=OGYzODQ2ZjE4Njc2MDQ0MjYxZjlhNzQ2MzYyZDMzNmRfRG1PdzJiaWhtS0pIUlRrcFNJVm53c3BJWnBhd0lXV3hfVG9rZW46SFpwQWJOQmF2b2lMdlB4eXJucmNnWXlabkVlXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<p>第二步安装 deploy-git </p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWE2YjJiYTU2OGM1MzM1NmQ3MmIzNzEwMDk1OTkyZDVfSFA3d3N1VUs2eTVyRU1XOUlRRkc3Q1V4UkhVUmRCNk9fVG9rZW46VE1zeWI1ZGNCb0Rwanp4UXpqcGN0UE1DbmNoXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<p>第三步 生成静态界面并推送到远端</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo c   <span class="meta">#清除缓存文件 db.json 和已生成的静态文件 public</span></span><br><span class="line">hexo g       <span class="meta">#生成网站静态文件到默认设置的 public 文件夹(hexo generate 的缩写)</span></span><br><span class="line">hexo d       <span class="meta">#自动生成网站静态文件，并部署到设定的仓库(hexo deploy 的缩写)</span></span><br></pre></td></tr></table></figure>
+
+<p>注意deploy时会让输个yes</p>
+<p><strong>最后就可以使用xxx.github.io来访问你的博客啦</strong></p>
+<p><img src="https://st77el7sgb.feishu.cn/space/api/box/stream/download/asynccode/?code=MWY5NDc5ZWFiYjhiMzI4YTA5NzRkMGEyZjE1ZGVkNDBfWU45YlNUWDdKNjI3dGJVNHJYcWFmNGt4bUFQZVViSUdfVG9rZW46SXdXQmJwbXZ4b0dTd2N4bVNMdGNFV3MwbkpkXzE3NTIzMDc3OTE6MTc1MjMxMTM5MV9WNA" alt="img"></p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2337246">https://cloud.tencent.com/developer/article/2337246</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/07/12/%E2%80%9C%E4%BB%8E0%E5%88%B01%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93%E2%80%9C/" data-id="cmczvfvrq0000pgpq05iacrqe" data-title="“从0到1搭建博客总结“" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/07/12/%E2%80%9C%E4%BB%8E0%E5%88%B01%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93%E2%80%9C/" data-id="cmczvfvrq0000pgpq05iacrqe" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -204,7 +238,7 @@
       <ul>
         
           <li>
-            <a href="/2025/07/12/%E2%80%9C%E4%BB%8E0%E5%88%B01%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93%E2%80%9C/">“从0到1搭建博客总结“</a>
+            <a href="/2025/07/12/%E2%80%9C%E4%BB%8E0%E5%88%B01%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93%E2%80%9C/">(no title)</a>
           </li>
         
           <li>
