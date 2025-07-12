@@ -101,7 +101,6 @@
 <p>其中用户态虚拟内存空间为 3 GB，虚拟内存地址范围为：0x0000 0000 - 0xC000 000 。</p>
 <p>内核态虚拟内存空间为 1 GB，虚拟内存地址范围为：0xC000 000 - 0xFFFF FFFF。</p>
 <p><img src="/2025/07/12/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/VKTEbuxTbo0wo6xgCi5cN1Jdnbc.png"></p>
-<p><img src="/2025/07/12/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/VKTEbuxTbo0wo6xgCi5cN1Jdnbc.png"></p>
 <p>64 位机器上进程虚拟内存空间分布</p>
 <p>那么我们理所应当的会认为在 64 位机器上，指针的寻址范围为 2^64，所能表达的虚拟内存空间为 16 EB 。虚拟内存地址范围为：0x0000 0000 0000 0000 0000  - 0xFFFF FFFF FFFF FFFF 。事实上在目前的 64 位系统下只使用了 48 位来描述虚拟内存空间，寻址范围为 2^48 所能表达的虚拟内存空间为 256TB。</p>
 <p><img src="/2025/07/12/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Lk7bbIU5AoFISYxRkZMcgnzUnth.png"></p>
