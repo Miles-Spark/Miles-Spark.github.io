@@ -104,16 +104,16 @@
 <p>在 32 位机器上，指针的寻址范围为 2^32，所能表达的虚拟内存空间为 4 GB。所以在 32 位机器上进程的虚拟内存地址范围为：0x0000 0000 - 0xFFFF FFFF。</p>
 <p>其中用户态虚拟内存空间为 3 GB，虚拟内存地址范围为：0x0000 0000 - 0xC000 000 。</p>
 <p>内核态虚拟内存空间为 1 GB，虚拟内存地址范围为：0xC000 000 - 0xFFFF FFFF。</p>
-<figure><img src="./Linux/VKTEbuxTbo0wo6xgCi5cN1Jdnbc.png" alt=""></figure>
+<figure><img src=".%2FLinux%2FVKTEbuxTbo0wo6xgCi5cN1Jdnbc.png" alt=""></figure>
 <p>64 位机器上进程虚拟内存空间分布</p>
 <p>那么我们理所应当的会认为在 64 位机器上，指针的寻址范围为 2^64，所能表达的虚拟内存空间为 16 EB 。虚拟内存地址范围为：0x0000 0000 0000 0000 0000  - 0xFFFF FFFF FFFF FFFF 。事实上在目前的 64 位系统下只使用了 48 位来描述虚拟内存空间，寻址范围为 2^48 所能表达的虚拟内存空间为 256TB。</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Lk7bbIU5AoFISYxRkZMcgnzUnth.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FLk7bbIU5AoFISYxRkZMcgnzUnth.png" alt=""></figure>
 <h2 id="4-进程虚拟内存空间的管理">4.进程虚拟内存空间的管理</h2>
 <p>比较关键的数据结构</p>
 <p>进程描述符 task_struct</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/DRs0bCiMnoUsbxxxszecCOC7ncd.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FDRs0bCiMnoUsbxxxszecCOC7ncd.png" alt=""></figure>
 <p>内存描述符 mm_struct</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/VKTEbuxTbo0wo6xgCi5cN1Jdnbc.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FVKTEbuxTbo0wo6xgCi5cN1Jdnbc.png" alt=""></figure>
 <p>mm_struct 结构体中的 total_vm 表示在进程虚拟内存空间中总共与物理内存映射的页的总数。</p>
 <p>locked_vm 就是被锁定不能换出的内存页总数</p>
 <p>pinned_vm 表示既不能换出，也不能移动的内存页总数。</p>
@@ -123,22 +123,22 @@
 <p>子进程在新创建出来之后它的虚拟内存空间是和父进程的虚拟内存空间一模一样的，直接拷贝过来。</p>
 <h3 id="如何划分">如何划分</h3>
 <p>内核如何划分用户态和内核态虚拟内存空间</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/MArEbTZbaoQfqmxoqVncnoJEnAg.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FMArEbTZbaoQfqmxoqVncnoJEnAg.png" alt=""></figure>
 <h3 id="如何布局">如何布局</h3>
 <p>内核如何布局进程虚拟内存空间（划分进程虚拟内存分区）</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/AlvobbbEmocTorxxBd2c1ssznxd.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FAlvobbbEmocTorxxBd2c1ssznxd.png" alt=""></figure>
 <h3 id="如何管理">如何管理</h3>
 <p>内核如何管理虚拟内存区域（描述虚拟内存）</p>
 <p>vm_area_struct 描述符，正是这个结构体描述了这些虚拟内存区域 VMA（virtual memory area）。</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/GcE9bkA4vofrIWxwBalc1Gornuw.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FGcE9bkA4vofrIWxwBalc1Gornuw.png" alt=""></figure>
 <p>vm_area_struct 结构描述的是 [vm_start，vm_end)这样一段左闭右开的虚拟内存区域。</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Hy7GbXEmPoNGmdxtjjBcrZmsngc.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FHy7GbXEmPoNGmdxtjjBcrZmsngc.png" alt=""></figure>
 <h3 id="访问权限和行为规范">访问权限和行为规范</h3>
 <p>定义虚拟内存区域的访问权限和行为规范</p>
 <p>vm_page_prot 和 vm_flags 都是用来标记 vm_area_struct 结构表示的这块虚拟内存区域的访问权限和行为规范。</p>
 <p>vm_page_prot 偏向于定义底层内存管理架构中页这一级别的访问控制权限它可以直接应用在底层页表中</p>
 <p>vm_flags 则偏向于定于整个虚拟内存区域的访问权限以及行为规范描述的是虚拟内存区域中的整体信息，而不是虚拟内存区域中具体的某个独立页面描述的是虚拟内存区域中的整体信息，可以通过 vma-&gt;vm_page_prot =vm_get_page_prot(vma-&gt;vm_flags)实现到具体页面访问权限 vm_page_prot 的转换。</p>
-<figure><img src="static/FsMTbfOF4oJMTVx100WclVdZnub.png" alt=""></figure>
+<figure><img src="static%2FFsMTbfOF4oJMTVx100WclVdZnub.png" alt=""></figure>
 <h3 id="映射关系">映射关系</h3>
 <p>关联内存映射中的映射关系</p>
 <p>anon_vma, vm_file,vm_pgoff</p>
@@ -154,16 +154,16 @@
 <h3 id="相关操作">相关操作</h3>
 <p>针对虚拟内存区域的相关操作</p>
 <p>struct vm_area_struct 结构中还有一个 vm_ops 用来指向针对虚拟内存区域 VMA 的相关操作的函数指针。</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Q5lVbd6owo7X7SxxaLoczPi0nEd.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FQ5lVbd6owo7X7SxxaLoczPi0nEd.png" alt=""></figure>
 <h3 id="如何被组织的">如何被组织的</h3>
 <p>虚拟内存区域在内核中是如何被组织的</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/RAwibhAL2oLt64x4DFwc88D3n2e.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FRAwibhAL2oLt64x4DFwc88D3n2e.png" alt=""></figure>
 <p>mm_struct 中的页表会映射所有 VMA 的物理地址，VMA 则提供了虚拟地址范围和访问权限等信息。</p>
 <p>vm_area_struct 会有两种组织形式一种是双向链表用于高效的遍历，另一种就是红黑树用于高效的查找。</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/JIr0bpwr3ojFQaxiowfcNEe3nRf.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FJIr0bpwr3ojFQaxiowfcNEe3nRf.png" alt=""></figure>
 <h2 id="5-程序编译后的二进制文件如何映射到虚拟内存空间中">5.程序编译后的二进制文件如何映射到虚拟内存空间中</h2>
 <p>代码进行编译后会生成 elf 格式的二进制文件，代码在运行的时候会从磁盘空间 section 段映射到内存 segment 段， 具体是通过函数 load_elf_binary()函数来映射的，并且初始化了 mm_struct 内存描述符和 vm_area_strcut 虚拟内存区域</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/ECGXbA4PQo30GixuVQecD2vInBe.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FECGXbA4PQo30GixuVQecD2vInBe.png" alt=""></figure>
 <p>setup_new_exec: 设置虚拟内存的起始位置</p>
 <p>setup_arg_pages:　初始化栈和 vm_area_struct 虚拟区域</p>
 <p>elf_map :　映射 elf 格式的代码到内存虚拟空间</p>
@@ -187,15 +187,15 @@
 <h4 id="临时映射区">临时映射区</h4>
 <p>临时将缓存页临时映射到内核空间的一段虚拟地址上</p>
 <h4 id="32-位体系结构下-Linux-虚拟内存空间整体布局">32 位体系结构下 Linux 虚拟内存空间整体布局</h4>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/G9UtbXrKFoUuEHx1RencvKAVnog.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FG9UtbXrKFoUuEHx1RencvKAVnog.png" alt=""></figure>
 <h3 id="64-位体系内核虚拟内存空间布局">64 位体系内核虚拟内存空间布局</h3>
 <p>在 64 位操作系统中使用 48 位来表示虚拟内存空间，其中低 16 位表示用户进程虚拟内存空间， 高 16 位表示内核虚拟内存空间，内存虚拟空间足足有 128T 可以说是非常大 可以随意挥霍</p>
 <p>在空间布局上，首先是一个 8T 的内存空洞，然后紧接着 64T 的直接映射区，之后是 32T 的动态映射区，之后是 1T 的虚拟内存映射区，最后是 512M 的代码区</p>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Imjcb5XBHohWQbxCRhhclSJcn7e.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FImjcb5XBHohWQbxCRhhclSJcn7e.png" alt=""></figure>
 <h2 id="7-物理内存">7.物理内存</h2>
 <p>我们平时称的内存 也叫做随机访问存储器，也就是 RAM，RAM 分为两类，一个是 SRAM 静态 RAM 用于 CPU 高速缓存，特点是速度快，容量小，造价高； 另一个是 DRAM 动态 RAM ，就是我们常说的主存，特点是访问稍慢，容量大，造价低。</p>
 <h4 id="DRAM-的访问">DRAM 的访问</h4>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/BogPbyRFgoCRvKxdvfxcj6P7nRb.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FBogPbyRFgoCRvKxdvfxcj6P7nRb.png" alt=""></figure>
 <p>我们所说的主存有多个存储模块组成，每个存储模块包含 8 个 DRAM 芯片，每个 DRAM 芯片是一个二维结构，每个 DRAM 有两个地址引脚，通过 CAS , RAS 来访问 DRAM 芯片的基础单元 supercell, 每个 supercell 为一个字节大小；访问一个 Supercell 的具体流程如下：</p>
 <ol>
 <li>首先存储控制器将行地址 RAS = 2 通过地址引脚发送给 DRAM 芯片。</li>
@@ -205,7 +205,7 @@
 </ol>
 <p>每次存储模块访问都会广播 CAS, RAS 数据 从 8 个 DRAM 中读取 8 个字节数据返回。</p>
 <h4 id="CPU-访问主存的过程">CPU 访问主存的过程</h4>
-<figure><img src="./%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/ZTQvbdDzroMr2AxgTNAcTw6Ontd.png" alt=""></figure>
+<figure><img src=".%2F%25E6%25B7%25B1%25E5%2585%25A5%25E4%25BA%2586%25E8%25A7%25A3Linux%25E8%2599%259A%25E6%258B%259F%25E5%2586%2585%25E5%25AD%2598%25E7%25AE%25A1%25E7%2590%2586%2FZTQvbdDzroMr2AxgTNAcTw6Ontd.png" alt=""></figure>
 <p>CPU 与内存之间的数据交互是通过总线（bus）完成的，而数据在总线上的传送是通过一系列的步骤完成的，这些步骤称为总线事务（bus transaction）。</p>
 <p>其中数据从内存传送到 CPU 称之为读事务（read transaction），数据从 CPU 传送到内存称之为写事务（write transaction）。</p>
 <p>其中系统总线是连接 CPU 与 IO bridge 的，存储总线是来连接 IO bridge 和主存的。 IO bridge 其实起的作用就是转换不同总线上的电子信号。</p>
@@ -213,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/07/12/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="cmd03bbx40002q8pq4zfk78bg" data-title="深入了解Linux虚拟内存管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/07/12/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Linux%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="cmd03ny2s0002igpq6rnkhnl8" data-title="深入了解Linux虚拟内存管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -246,12 +246,12 @@ Node.js 官网下载：<a target="_blank" rel="noopener" href="http://nodejs.cn/
 <p>1.Hexo 是一款基于 Node.js 的快速、简洁且高效的静态博客框架。在安装好 Node.js 后进入 cmd 命令行 输入指令安装 hexo</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 <p>2.新建一个文件夹放 hexo 项目，然后右键打开 git bash</p>
-<figure><img src="/images/EN2jbXD8SorQ2IxaRLKcNhQMnns.png" alt=""></figure>
+<figure><img src="%2Fimages%2FEN2jbXD8SorQ2IxaRLKcNhQMnns.png" alt=""></figure>
 <p>输入指令创建 hexo 项目，如果在创建过程中报错，可能是网络问题可以挂个梯子清空文件夹再创建一次。</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">init</span></span><br></pre></td></tr></table></figure>
 <p>3.输入指令启动 hexo 项目</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<figure><img src="/images/LIJ4bgFdVoesEBx6SPSckYItnJe.png" alt=""></figure>
+<figure><img src="%2Fimages%2FLIJ4bgFdVoesEBx6SPSckYItnJe.png" alt=""></figure>
 <p>新建的项目中有：</p>
 <p>node_modules: 依赖包<br>
 public：存放生成的页面<br>
@@ -261,13 +261,13 @@ themes：主题<br>
 ** _config.yml: 博客的配置文件**</p>
 <p>4.在本地尝试将网站打开</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//localhost:4000/</span></span><br></pre></td></tr></table></figure>
-<figure><img src="/images/COQXbjyTko7FEpxRnB3cX6QjnHV.png" alt=""></figure>
+<figure><img src="%2Fimages%2FCOQXbjyTko7FEpxRnB3cX6QjnHV.png" alt=""></figure>
 <p>出现这个页面说明就成功了。</p>
 <h2 id="三、将-Hexo-项目部署到-Github-上">三、将 Hexo 项目部署到 Github 上</h2>
 <p>将 Hexo 项目部署到 GitHub 上后就可以在多台设备上访问我们网站了。部署流程如下：</p>
 <h3 id="1-在-GitHub-上新建仓库">1.在 GitHub 上新建仓库</h3>
 <p><a target="_blank" rel="noopener" href="http://xn--5mq4mu3jba185kvraq8be0jomjpjby22heodga1482j.github.io">新建的仓库名必须是你的用户名.github.io</a>，否则仓库名就是无效的无法部署成功。</p>
-<figure><img src="static/MAMebQOOfocL3BxSkbcc6nUDn0b.png" alt=""></figure>
+<figure><img src="static%2FMAMebQOOfocL3BxSkbcc6nUDn0b.png" alt=""></figure>
 <h3 id="2-生成-ssh-添加到-Github">2.生成 ssh 添加到 Github</h3>
 <p>ssh 提供了安全验证和免密操作，hexo 项目与 github 远端仓库交互时不需要每次输入用户名和密码。</p>
 <p>第一步：配置 git 中的用户名和邮箱，打开 cmd, 输入以下命令</p>
@@ -276,34 +276,34 @@ themes：主题<br>
 <p>第二步： 在 hexo 项目的目录下 右键打开 git bash 输入指令 生成公钥</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C 自己的邮箱地址</span><br></pre></td></tr></table></figure>
 <p>输入指令后 连敲击三次回车 出现下图就成功了</p>
-<figure><img src="/images/UaAdbHpsmoJbwOxdBZYcZjRinrx.png" alt=""></figure>
+<figure><img src="%2Fimages%2FUaAdbHpsmoJbwOxdBZYcZjRinrx.png" alt=""></figure>
 <p>第三步，创建的公钥在.ssh 目录中，打开该目录 id_rsa.pub 表示公用复制这里面的内容，然后进入 github.</p>
 <p>点击 setings</p>
-<figure><img src="/images/RxHMbKKxNorNJCx4KP3c6Od3nCf.png" alt=""></figure>
-<figure><img src="/images/AvMkbUV27o0xl0xAqRIcMDxVnSe.png" alt=""></figure>
+<figure><img src="%2Fimages%2FRxHMbKKxNorNJCx4KP3c6Od3nCf.png" alt=""></figure>
+<figure><img src="%2Fimages%2FAvMkbUV27o0xl0xAqRIcMDxVnSe.png" alt=""></figure>
 <p>发现我们需要一个密钥，把我们刚刚复制的密钥粘进去，title 随便起</p>
-<figure><img src="/images/BhxTbt17jo45Y5xnncpc2sKRnef.png" alt=""></figure>
+<figure><img src="%2Fimages%2FBhxTbt17jo45Y5xnncpc2sKRnef.png" alt=""></figure>
 <h3 id="3-部署到-github-中">3.部署到 github 中</h3>
 <p>这一步，我们就可以将 hexo 和 GitHub 关联起来，也就是将 hexo 生成的文章部署到 GitHub 上。</p>
 <p>第一步 修改配置文件</p>
-<figure><img src="static/JPX6bwED8oO4hxxRrpIcy8ECnzd.png" alt=""></figure>
+<figure><img src="static%2FJPX6bwED8oO4hxxRrpIcy8ECnzd.png" alt=""></figure>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">修改内存</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:goubin18/goubin18.github.io.git <span class="comment">//（用自己的仓库路径代替）</span></span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
-<figure><img src="static/HZpAbNBavoiLvPxyrnrcgYyZnEe.png" alt=""></figure>
+<figure><img src="static%2FHZpAbNBavoiLvPxyrnrcgYyZnEe.png" alt=""></figure>
 <p>第二步安装 deploy-git</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<figure><img src="/images/TMsyb5dcBoDpjzxQzjpctPMCnch.png" alt=""></figure>
+<figure><img src="%2Fimages%2FTMsyb5dcBoDpjzxQzjpctPMCnch.png" alt=""></figure>
 <p>第三步 生成静态界面并推送到远端</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo c   <span class="meta">#清除缓存文件 db.json 和已生成的静态文件 public</span></span><br><span class="line">hexo g       <span class="meta">#生成网站静态文件到默认设置的 public 文件夹(hexo generate 的缩写)</span></span><br><span class="line">hexo d       <span class="meta">#自动生成网站静态文件，并部署到设定的仓库(hexo deploy 的缩写)</span></span><br></pre></td></tr></table></figure>
 <p>注意 deploy 时会让输个 yes</p>
 <p><strong>最后就可以使用 <a target="_blank" rel="noopener" href="http://xxx.github.io">xxx.github.io</a> 来访问你的博客啦</strong></p>
-<figure><img src="static/IwWBbpmvxoGSwcxmSLtcEWs0nJd.png" alt=""></figure>
+<figure><img src="static%2FIwWBbpmvxoGSwcxmSLtcEWs0nJd.png" alt=""></figure>
 <h2 id="引用">引用</h2>
 <p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2337246">https://cloud.tencent.com/developer/article/2337246</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/07/12/%E2%80%9C%E4%BB%8E0%E5%88%B01%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93%E2%80%9C/" data-id="cmd03bbx30001q8pq0z2e4wfi" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/07/12/%E2%80%9C%E4%BB%8E0%E5%88%B01%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93%E2%80%9C/" data-id="cmd03ny2r0001igpq1k3d0q9h" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -355,7 +355,7 @@ themes：主题<br>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/07/12/hello-world/" data-id="cmd03bbwo0000q8pqhox17qut" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/07/12/hello-world/" data-id="cmd03ny2l0000igpqaxip8fui" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
