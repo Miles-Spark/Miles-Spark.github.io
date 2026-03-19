@@ -1,250 +1,247 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="keywords" content="Hexo Theme Keep">
-    <meta name="description" content="人生不止是旷野">
-    <meta name="author" content="Keep Team">
-    
-    <title>
-        
-            CPU缓存一致性 |
-        
-        Keep Theme
-    </title>
-    
-<link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
 
-    
-        <link rel="shortcut icon" href="/images/logo.svg">
-    
-    
-<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-    
-<link rel="stylesheet" href="/font/css/regular.min.css">
-
-    
-<link rel="stylesheet" href="/font/css/solid.min.css">
-
-    
-<link rel="stylesheet" href="/font/css/brands.min.css">
-
-    
-    <script class="keep-theme-configurations">
-    const KEEP = window.KEEP || {}
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
-    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Keep Theme","author":"Keep Team","avatar":"/images/avatar.svg","logo":"/images/logo.svg","favicon":"/images/logo.svg"},"menu":{"home":"/","archives":"/archives"},"first_screen":{"enable":false,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":false,"tag":false,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false,"share":false,"reward":{"enable":false,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"toc":{"enable":false,"number":false,"expand_all":false,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"local_search":{"enable":false,"preload":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":"3.3.2"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":false},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":false},"footer":{"since":2020,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
-    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
-    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
-    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original post title","author":"Original post author","link":"Original post link"}
-  </script>
-<meta name="generator" content="Hexo 7.3.0"></head>
+<link rel="stylesheet" href="/css/main.css">
 
 
-<body>
-<div class="progress-bar-container">
-    
 
-    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一、CPU Cache 与 内存中数据的一致性我们期望CPU读取数据的时候,都是尽可能地从CPUCache中读取,而不是每一次都要从内存中获取数据。所以身为程序员,我们要尽可能写出缓存命中率高的代码,这样就有效提高程序的性能,事实上,数据不光是只有读操作,还有写操作,那么如果数据写入Cache之后,内存与Cache相对应的数据将会不同,这种情况下Cache和内存数据都不一致了,于是我们肯定是要把C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CPU缓存一致性">
+<meta property="og:url" content="http://example.com/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/index.html">
+<meta property="og:site_name" content="Miles&#39;s Blog">
+<meta property="og:description" content="一、CPU Cache 与 内存中数据的一致性我们期望CPU读取数据的时候,都是尽可能地从CPUCache中读取,而不是每一次都要从内存中获取数据。所以身为程序员,我们要尽可能写出缓存命中率高的代码,这样就有效提高程序的性能,事实上,数据不光是只有读操作,还有写操作,那么如果数据写入Cache之后,内存与Cache相对应的数据将会不同,这种情况下Cache和内存数据都不一致了,于是我们肯定是要把C">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image.png">
+<meta property="og:image" content="http://example.com/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-1.png">
+<meta property="og:image" content="http://example.com/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-2.png">
+<meta property="og:image" content="http://example.com/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-3.png">
+<meta property="article:published_time" content="2026-03-19T09:47:39.000Z">
+<meta property="article:modified_time" content="2026-03-19T02:49:23.082Z">
+<meta property="article:author" content="miles">
+<meta property="article:tag" content="CPU Cache">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image.png">
+
+
+<link rel="canonical" href="http://example.com/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/","path":"2026/03/19/CPU缓存一致性/","title":"CPU缓存一致性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CPU缓存一致性 | Miles's Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Miles's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">生死看淡不符就干</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
 </div>
 
 
 
-<main class="page-container border-box">
-    <!-- home first screen  -->
-    
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
 
-    <!-- page content -->
-    <div class="page-main-content border-box">
-        <div class="page-main-content-top">
-            
-<header class="header-wrapper">
 
-    <div class="border-box header-content">
-        <div class="left flex-start border-box">
-            
-                <a class="logo-image border-box" href="/">
-                    <img src="/images/logo.svg">
-                </a>
-            
-            <a class="site-name border-box" href="/">
-               Keep Theme
-            </a>
-        </div>
 
-        <div class="right border-box">
-            <div class="pc border-box">
-                <ul class="menu-list border-box">
-                    
-                        
-                        <li class="menu-item flex-start border-box">
-                            <a class="menu-text-color border-box" href="/">
-                                
-                                HOME
-                                
-                            </a>
-                            
-                        </li>
-                    
-                        
-                        <li class="menu-item flex-start border-box">
-                            <a class="menu-text-color border-box" href="/archives">
-                                
-                                ARCHIVES
-                                
-                            </a>
-                            
-                        </li>
-                    
-                    
-                </ul>
-            </div>
-            <div class="mobile border-box flex-start">
-                
-                <div class="icon-item menu-bar">
-                    <div class="menu-bar-middle"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="header-drawer">
-        <ul class="drawer-menu-list border-box">
-            
-                
-                <li class="drawer-menu-item border-box not-sub-menu">
-                    <label class="drawer-menu-label border-box">
-                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
-                            
-                            HOME
-                        </a>
-                        
-                    </label>
-                    
-                </li>
-            
-                
-                <li class="drawer-menu-item border-box not-sub-menu">
-                    <label class="drawer-menu-label border-box">
-                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
-                            
-                            ARCHIVES
-                        </a>
-                        
-                    </label>
-                    
-                </li>
-            
-        </ul>
-    </div>
-
-    <div class="window-mask"></div>
 
 </header>
+        
+  
+  <aside class="sidebar">
 
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81CPU-Cache-%E4%B8%8E-%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">一、CPU Cache 与 内存中数据的一致性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%86%99%E7%9B%B4%E8%BE%BE"><span class="nav-number">2.</span> <span class="nav-text">二、写直达</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%86%99%E5%9B%9E"><span class="nav-number">3.</span> <span class="nav-text">三、写回</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%A4%9A%E6%A0%B8CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">四、多核CPU缓存一致性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%80%BB%E7%BA%BF%E5%97%85%E6%8E%A2"><span class="nav-number">5.</span> <span class="nav-text">五、总线嗅探</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81MESI%E5%8D%8F%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">六、MESI协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">七、参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="miles"
+      src="https://picx.zhimg.com/v2-e23e2883c26855db1534ce359f2b0efd_r.jpg">
+  <p class="site-author-name" itemprop="name">miles</p>
+  <div class="site-description" itemprop="description">人生不止是旷野</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
 
         </div>
-
-        <div class="page-main-content-middle border-box">
-
-            <div class="main-content border-box">
-                
-
-                    
-<div class="fade-in-down-animation">
-    <div class="post-page-container border-box">
-        <div class="post-content-container border-box">
-            
-
-            <div class="post-content-bottom border-box">
-                
-                    <div class="post-title">
-                        CPU缓存一致性
-                    </div>
-                
-
-                
-                    <div class="post-header border-box">
-                        
-                            <div class="avatar-box border-box">
-                                <img src="/images/avatar.svg">
-                            </div>
-                        
-                        <div class="info-box">
-                            <div class="author border-box">
-                                <span class="name">Keep Team</span>
-                                
-                                    <span class="author-badge">Lv2</span>
-                                
-                            </div>
-                            <div class="meta-info border-box">
-                                
-
-<div class="post-meta-info-container border-box post">
-    <div class="post-meta-info border-box">
-        
-
-        
-            <span class="meta-info-item post-create-date">
-                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2026-03-19 09:47:39</span>
-            </span>
-
-            
-                <span class="meta-info-item post-update-date">
-                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                    <span class="datetime" data-updated="Thu Mar 19 2026 10:49:23 GMT+0800">2026-03-19 02:49:23</span>
-                </span>
-            
-        
-
-        
-            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
-                <ul class="post-category-ul">
-                    
-                            <li class="category-item"><a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li>
-                        
-                    
-                </ul>
-            </span>
-        
-
-        
-            <span class="post-tag meta-info-item border-box">
-                <ul class="post-tag-ul">
-                    
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/CPU-Cache/">CPU Cache</a></li>
-                        
-                    
-                </ul>
-            </span>
-        
-
-        
-        
-        
-        
+      </div>
     </div>
 
     
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://picx.zhimg.com/v2-e23e2883c26855db1534ce359f2b0efd_r.jpg">
+      <meta itemprop="name" content="miles">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miles's Blog">
+      <meta itemprop="description" content="人生不止是旷野">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CPU缓存一致性 | Miles's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CPU缓存一致性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-03-19 09:47:39 / 修改时间：02:49:23" itemprop="dateCreated datePublished" datetime="2026-03-19T09:47:39Z">2026-03-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+        </span>
+    </span>
+
+  
 </div>
 
-                            </div>
-                        </div>
-                    </div>
-                
+        </div>
+      </header>
 
-                <div class="post-content keep-markdown-body ">
-                    
-
-                    
-                         <h1 id="一、CPU-Cache-与-内存中数据的一致性"><a href="#一、CPU-Cache-与-内存中数据的一致性" class="headerlink" title="一、CPU Cache 与 内存中数据的一致性"></a><strong>一、CPU Cache 与 内存中数据的一致性</strong></h1><p>我们期望CPU读取数据的时候,都是尽可能地从CPUCache中读取,而不是每一次都要从内存中获取数据。所以身为程序员,我们要尽可能写出缓存命中率高的代码,这样就有效提高程序的性能,事实上,数据不光是只有读操作,还有写操作,那么如果数据写入Cache之后,内存与Cache相对应的数据将会不同,这种情况下Cache和内存数据都不一致了,于是我们肯定是要把Cache中的数据同步到内存里的。</p>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="一、CPU-Cache-与-内存中数据的一致性"><a href="#一、CPU-Cache-与-内存中数据的一致性" class="headerlink" title="一、CPU Cache 与 内存中数据的一致性"></a><strong>一、CPU Cache 与 内存中数据的一致性</strong></h1><p>我们期望CPU读取数据的时候,都是尽可能地从CPUCache中读取,而不是每一次都要从内存中获取数据。所以身为程序员,我们要尽可能写出缓存命中率高的代码,这样就有效提高程序的性能,事实上,数据不光是只有读操作,还有写操作,那么如果数据写入Cache之后,内存与Cache相对应的数据将会不同,这种情况下Cache和内存数据都不一致了,于是我们肯定是要把Cache中的数据同步到内存里的。</p>
 <p>那么如何将Cache中的数据同步到内存呢？ 有两种方式：<strong>写直达</strong>和<strong>写回。</strong></p>
 <h1 id="二、写直达"><a href="#二、写直达" class="headerlink" title="二、写直达"></a>二、写直达</h1><p>在这个方法里,写入前会先判断数据是否已经在CPUCache里面了，如果数据已经在Cache里面,先将数据更新到Cache里面,再写入到内存里面；如果数据没有在Cache里面,就直接把数据更新到内存里面。</p>
 <p>写直达法很直观,也很简单,但是问题明显,无论数据在不在Cache里面,每次写操作都会写回到内存,这样写操作将会花费大量的时间,无疑性能会受到很大的影响。</p>
-<p><img   src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image.png" ></p>
+<p><img src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image.png"></p>
 <h1 id="三、写回"><a href="#三、写回" class="headerlink" title="三、写回"></a>三、写回</h1><p>既然写直达由于每次写操作都会把数据写回到内存,而导致影响性能,于是为了要减少数据写回内存的频率,就出现了<strong>写回</strong>(WriteBack)的方法。在写回机制中,当发生写操作时,新的数据仅仅被写入Caclhe Block里,只有当修改过的Cache Bloc&#x6B;<strong>「被替换」</strong>&#x65F6;才需要写到内存中,减少了数据写回内存的频率,这样便可以提高系统的性能。</p>
 <p>那具体如何做到的呢?下面来详细说一下:</p>
 <ol>
@@ -254,7 +251,7 @@
 <p>如果不是脏的话,把当前要写入的数据先从内存读入到Cache Block里,接着将数据写入到这个Cache Block里,然后再把这个Cache Block标记为脏的就就好了。</p>
 </li>
 </ol>
-<p><img   src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-1.png" ></p>
+<p><img src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-1.png"></p>
 <h1 id="四、多核CPU缓存一致性"><a href="#四、多核CPU缓存一致性" class="headerlink" title="四、多核CPU缓存一致性"></a>四、多核CPU缓存一致性</h1><p>现在CPU都是多核的,由于L1&#x2F;L2Cache是多个核心各自独有的,那么会带来多核心的缓存一致性的问题,如果不能保证缓存一致性的问题,就可能造成结果错误。那缓存一致性的问题具体是怎么发生的呢?我们以一个含有两个核心CPU作为例子看一看。</p>
 <p>假设A号核心和B号核心同时运行两个线程,都操作共同的变量i(初始值为0)。</p>
 <p>这时如果A号核心执行了i++语句的时候,为了考虑性能,使用了我们前面所说的写回策略,先把值为1的执行结果写入到L1&#x2F;L2Cache中,然后把L1&#x2F;L2Cache中对应的Block标记为脏的,这个时候数据其实没有被同步到内存中的,因为写回策略,只有在A号核心中的这个CacheBlock要被替换的时候,数据才会写入到内存里。</p>
@@ -285,7 +282,7 @@
 <li><p>在「独占」状态下的数据,如果有其他核心从内存读取了相同的数据到各自的Cache,那么这个时候,独占状态下的数据就会变成共享状态。那么,「共享」状态代表着相同的数据在多个CPU核心的Cache里都有,所以当我们要更新Cache里面的数据的时候,不能直接修改,而是要先向所有的其他CPU核心广播一个请求,要求先把其他核心的Cache中对应的Cache Line标记为「无效」状态,然后再更新新当前Cache里面的数据。</p>
 </li>
 </ol>
-<p><img   src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-2.png" ></p>
+<p><img src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-2.png"></p>
 <p>我们举个具体的例子来看看这四个状态的转换:</p>
 <ol>
 <li><p>当A号CPU核心从内存读取变量i的值,数据被缓存在A号CPU核心自己的Cache里面,此时其他CPU核心的Cache没有缓存该数据,于是标记CacheLine状态为「独占」,此时其Cache中的数据与内存是一致的;</p>
@@ -300,251 +297,75 @@
 </li>
 </ol>
 <p>可以发现当Cache Line状态是「已修改」或者「独占」状态时,修改更新其数据不需要发送广播给其他CPU核心,这在一定程度上减少了总线带宽压力。</p>
-<p><img   src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-3.png" ></p>
-<h1 id="七、参考"><a href="#七、参考" class="headerlink" title="七、参考"></a>七、参考</h1><p><a class="link"   target="_blank" rel="noopener" href="https://www.xiaolincoding.com/os/1/_hardware/cpu/_mesi.html#mesi-%E5%8D%8F%E8%AE%AE" >https://www.xiaolincoding.com/os/1\_hardware/cpu\_mesi.html#mesi-%E5%8D%8F%E8%AE%AE<i class="fas fa-external-link-alt"></i></a></p>
+<p><img src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-3.png"></p>
+<h1 id="七、参考"><a href="#七、参考" class="headerlink" title="七、参考"></a>七、参考</h1><p><a target="_blank" rel="noopener" href="https://www.xiaolincoding.com/os/1/_hardware/cpu/_mesi.html#mesi-%E5%8D%8F%E8%AE%AE">https://www.xiaolincoding.com/os/1\_hardware/cpu\_mesi.html#mesi-%E5%8D%8F%E8%AE%AE</a></p>
 
-                    
-                </div>
+    </div>
 
-                
+    
+    
+    
 
-                <div class="post-bottom-tags-and-share border-box">
-                    <div>
-                        
-                            <ul class="post-tags-box border-box">
-                                
-                                    <li class="tag-item border-box">
-                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/CPU-Cache/">CPU Cache</a>
-                                    </li>
-                                
-                            </ul>
-                        
-                    </div>
-                    <div>
-                        
-                    </div>
-                </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CPU-Cache/" rel="tag"># CPU Cache</a>
+          </div>
 
-                
+        
 
-                
-                    <div class="post-nav border-box">
-                        
-                        
-                            <div class="next-post">
-                                <a class="next"
-                                   rel="next"
-                                   href="/2025/08/17/UnityShader%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%A4%8D%E6%9D%82%E5%85%89%E7%85%A7/"
-                                   title="UnityShader学习笔记--复杂光照"
-                                >
-                                    <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">UnityShader学习笔记--复杂光照</span>
-                                        <span class="post-nav-item">Next posts</span>
-                                    </span>
-                                    <span class="right arrow-icon flex-center">
-                                        <i class="fas fa-chevron-right"></i>
-                                    </span>
-                                </a>
-                            </div>
-                        
-                    </div>
-                
-
-                
-                    
-
-
-
-
-
-
-                
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/08/17/UnityShader%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%A4%8D%E6%9D%82%E5%85%89%E7%85%A7/" rel="prev" title="UnityShader学习笔记--复杂光照">
+                  <i class="fa fa-angle-left"></i> UnityShader学习笔记--复杂光照
+                </a>
             </div>
-        </div>
-
-        
-    </div>
-</div>
-
-
-                
+            <div class="post-nav-item">
             </div>
-        </div>
-
-        <div class="page-main-content-bottom border-box">
-            
-<footer class="footer border-box">
-    <div class="copyright-info info-item">
-    &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2026
-    
-            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Keep Team</a>
-        
-    </div>
-
-    <div class="theme-info info-item">
-        Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
-    </div>
-
-    
-
-    
-
-    
-</footer>
-
-        </div>
-    </div>
-
-    <!-- post tools -->
-    
-        <div class="post-tools right-toc">
-            <div class="post-tools-container border-box">
-    <ul class="post-tools-list border-box">
-        <!-- PC encrypt again -->
-        
-
-        <!-- PC TOC show toggle -->
-        
-
-        <!-- PC go comment -->
-        
-
-        <!-- PC full screen -->
-        <li class="tools-item flex-center full-screen">
-            <i class="fa-solid fa-expand"></i>
-        </li>
-    </ul>
-</div>
-
-        </div>
-    
-
-    <!-- side tools -->
-    <div class="side-tools">
-        <div class="side-tools-container border-box ">
-    <ul class="side-tools-list side-tools-show-handle border-box">
-        <li class="tools-item tool-font-adjust-plus flex-center">
-            <i class="fas fa-search-plus"></i>
-        </li>
-
-        <li class="tools-item tool-font-adjust-minus flex-center">
-            <i class="fas fa-search-minus"></i>
-        </li>
-
-        <!-- toggle mode -->
-        
-            <li class="tools-item tool-toggle-theme-mode flex-center">
-                <i class="fas fa-moon"></i>
-            </li>
-        
-
-        <!-- rss -->
-        
-
-        <!-- to bottom -->
-        <li class="tools-item tool-scroll-to-bottom flex-center">
-            <i class="fas fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="exposed-tools-list border-box">
-        
-
-        
-
-        <li class="tools-item tool-toggle-show flex-center">
-            <i class="fas fa-cog fa-spin"></i>
-        </li>
-
-        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
-            <i class="arrow fas fa-arrow-up"></i>
-            <span class="percent"></span>
-        </li>
-    </ul>
-</div>
-
-    </div>
-
-    <!-- image mask -->
-    <div class="zoom-in-image-mask">
-    <img class="zoom-in-image">
+          </div>
+    </footer>
+  </article>
 </div>
 
 
-    <!-- local search -->
-    
-
-    <!-- tablet toc -->
-    
-</main>
 
 
 
 
-
-<!-- common js -->
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/header-shrink.js"></script>
-
-<script src="/js/back2top.js"></script>
-
-<script src="/js/toggle-theme.js"></script>
-
-<script src="/js/code-block.js"></script>
-
-<script src="/js/main.js"></script>
-
-<script src="/js/libs/anime.min.js"></script>
-
-
-<!-- local search -->
-
-
-<!-- lazyload -->
-
-
-<div class="">
-    <!-- home page -->
-    
-
-    <!-- post page -->
-    
-        <!-- post-helper -->
-        
-<script src="/js/post/post-helper.js"></script>
-
-
-        <!-- toc -->
-        
-
-        <!-- copyright-info -->
-        
-
-        <!-- share -->
-        
-    
-
-    <!-- categories page -->
-    
-
-    <!-- links page -->
-    
-
-    <!-- photos page -->
-    
-
-    <!-- tools page -->
-    
 </div>
+  </main>
 
-<!-- mermaid -->
+  <footer class="footer">
+    <div class="footer-inner">
 
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">miles</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
 
-<!-- pjax -->
+    </div>
+  </footer>
 
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 </body>
 </html>
