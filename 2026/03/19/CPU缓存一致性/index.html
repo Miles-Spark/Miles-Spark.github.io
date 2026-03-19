@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="人生不止是旷野">
+    <meta name="author" content="Keep Team">
+    
+    <title>
+        
+            CPU缓存一致性 |
+        
+        Keep Theme
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/logo.svg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Keep Theme","author":"Keep Team","avatar":"/images/avatar.svg","logo":"/images/logo.svg","favicon":"/images/logo.svg"},"menu":{"home":"/","archives":"/archives"},"first_screen":{"enable":false,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":false,"tag":false,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false,"share":false,"reward":{"enable":false,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"toc":{"enable":false,"number":false,"expand_all":false,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"local_search":{"enable":false,"preload":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":"3.3.2"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":false},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":false},"footer":{"since":2020,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original post title","author":"Original post author","link":"Original post link"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.svg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Keep Theme
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                HOME
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                ARCHIVES
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            HOME
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            ARCHIVES
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        CPU缓存一致性
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.svg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Keep Team</span>
+                                
+                                    <span class="author-badge">Lv2</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2026-03-19 09:47:39</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Thu Mar 19 2026 10:49:23 GMT+0800">2026-03-19 02:49:23</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/CPU-Cache/">CPU Cache</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h1 id="一、CPU-Cache-与-内存中数据的一致性"><a href="#一、CPU-Cache-与-内存中数据的一致性" class="headerlink" title="一、CPU Cache 与 内存中数据的一致性"></a><strong>一、CPU Cache 与 内存中数据的一致性</strong></h1><p>我们期望CPU读取数据的时候,都是尽可能地从CPUCache中读取,而不是每一次都要从内存中获取数据。所以身为程序员,我们要尽可能写出缓存命中率高的代码,这样就有效提高程序的性能,事实上,数据不光是只有读操作,还有写操作,那么如果数据写入Cache之后,内存与Cache相对应的数据将会不同,这种情况下Cache和内存数据都不一致了,于是我们肯定是要把Cache中的数据同步到内存里的。</p>
+<p>那么如何将Cache中的数据同步到内存呢？ 有两种方式：<strong>写直达</strong>和<strong>写回。</strong></p>
+<h1 id="二、写直达"><a href="#二、写直达" class="headerlink" title="二、写直达"></a>二、写直达</h1><p>在这个方法里,写入前会先判断数据是否已经在CPUCache里面了，如果数据已经在Cache里面,先将数据更新到Cache里面,再写入到内存里面；如果数据没有在Cache里面,就直接把数据更新到内存里面。</p>
+<p>写直达法很直观,也很简单,但是问题明显,无论数据在不在Cache里面,每次写操作都会写回到内存,这样写操作将会花费大量的时间,无疑性能会受到很大的影响。</p>
+<p><img   src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image.png" ></p>
+<h1 id="三、写回"><a href="#三、写回" class="headerlink" title="三、写回"></a>三、写回</h1><p>既然写直达由于每次写操作都会把数据写回到内存,而导致影响性能,于是为了要减少数据写回内存的频率,就出现了<strong>写回</strong>(WriteBack)的方法。在写回机制中,当发生写操作时,新的数据仅仅被写入Caclhe Block里,只有当修改过的Cache Bloc&#x6B;<strong>「被替换」</strong>&#x65F6;才需要写到内存中,减少了数据写回内存的频率,这样便可以提高系统的性能。</p>
+<p>那具体如何做到的呢?下面来详细说一下:</p>
+<ol>
+<li><p>如果当发生写操作时,数据已经在CPU Cache里的话,则把数据更新到CPU Cache里,同时标记CPU Cache里的这个CacheBlock为脏(Dirty)的,这个脏的标记代表这个时候,我们CPUCache里面的这个CacheBlock的数据和内存是不一致的,这种情况是不用把数据写到内存里的;</p>
+</li>
+<li><p>如果当发生写操作时,数据所对应的CacheBlock里存放的是「别的内存地址的数据」的话,就要检查这个Cache Block里的数据有没有被标记为脏的: 如果是脏的话,我们就要把这个CacheBlock里的数据写回到内存,然后再把当前要写入的数据,先从内存读入到CacheBlock里,然后再把当前要写入的数据写入到CacheBlock,量最后也把它标记为脏的; &#x20;</p>
+<p>如果不是脏的话,把当前要写入的数据先从内存读入到Cache Block里,接着将数据写入到这个Cache Block里,然后再把这个Cache Block标记为脏的就就好了。</p>
+</li>
+</ol>
+<p><img   src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-1.png" ></p>
+<h1 id="四、多核CPU缓存一致性"><a href="#四、多核CPU缓存一致性" class="headerlink" title="四、多核CPU缓存一致性"></a>四、多核CPU缓存一致性</h1><p>现在CPU都是多核的,由于L1&#x2F;L2Cache是多个核心各自独有的,那么会带来多核心的缓存一致性的问题,如果不能保证缓存一致性的问题,就可能造成结果错误。那缓存一致性的问题具体是怎么发生的呢?我们以一个含有两个核心CPU作为例子看一看。</p>
+<p>假设A号核心和B号核心同时运行两个线程,都操作共同的变量i(初始值为0)。</p>
+<p>这时如果A号核心执行了i++语句的时候,为了考虑性能,使用了我们前面所说的写回策略,先把值为1的执行结果写入到L1&#x2F;L2Cache中,然后把L1&#x2F;L2Cache中对应的Block标记为脏的,这个时候数据其实没有被同步到内存中的,因为写回策略,只有在A号核心中的这个CacheBlock要被替换的时候,数据才会写入到内存里。</p>
+<p>如果这时旁边的B号核心尝试从内存读取i变量的值,则读到的将会是错误的值,因为刚才A号核心更新i值还没写入到内存中,内存中的值还依然是0。这个就是所谓的缓存一致性问题,A号核心和B号核心的缓存,在这个时候是不一致,从而会导致执行结果的错误。</p>
+<p>那么,要解决这一问题,就需要一种机制,来同步两个不同核心里面的缓存数据。要实现的这个机制的话,要保证做到下面这2点:</p>
+<p>第一点,某个CPU核心里的Cache数据更新时,必须要传播到其他核心的Cache,这个称为<strong>写传播</strong>(Write Propagation);</p>
+<p>第二点,某个CPU核心里对数据的操作顺序,必须在其他核心看起来顺序是一样的,这个称为<strong>事务的串行</strong>(Transaction Serialization)。举个例子，有四个核心 A,B,C,D 首先核心A操作变量i&#x3D; 100,在同时B核心操作变量i &#x3D; 200，需要将这个两个指令广播到核心C，D,且要保证核心C，D收到的指令顺序是一致的。</p>
+<p>要实现事务串行化,要做到2点:</p>
+<ol>
+<li><p>CPU核心对于Cache中数据的操作,需要同步给其他CPU核心</p>
+</li>
+<li><p>要引入「锁」的概念,如果两个CPU核心里有相同数据的Cache,那么对于这个Cache数据的更新,只有拿到了「锁」,才能进行对应的数据更新。</p>
+</li>
+</ol>
+<p>那接下来我们看看,写传播和事务串行化具体是用什么技术实现的。</p>
+<h1 id="五、总线嗅探"><a href="#五、总线嗅探" class="headerlink" title="五、总线嗅探"></a>五、总线嗅探</h1><p>写传播的原则就是当某个CPU核心更新了Cache中的数据,要把该事件广播通知到其他核心。最常见实</p>
+<p>现的方式是总线嗅探(Bus Snooping)。</p>
+<p>总线嗅探方法很简单,CPU需要每时每刻监听总线上的一切活动,但是不管别的核心的Cache是否缓存相同的数据,都需要发出一个广播事件,这无疑会加重总线的负载。另外,总线嗅探只是保证了某个CPU核心的Cache更新数据这个事件能被其他CPU核心知道,但是并不能保证事务串行化。</p>
+<p>于是,有一个协议基于总线嗅探机制实现了事务串行化,也用状态机机制降低了总线带宽压力,这个协议就是MESI协议,这个协议就做到了CPU缓存一致性。</p>
+<h1 id="六、MESI协议"><a href="#六、MESI协议" class="headerlink" title="六、MESI协议"></a>六、MESI协议</h1><p>MESI协议其实是4个状态单词的开头字母缩写,分别是:Modified,已修改；Exclusive,独占；Shared,共享；Invalidated,已失效。这四个状态来标记CacheLine四个不同的状态。</p>
+<ol>
+<li><p>「已修改」状态就是我们前面提到的脏标记,代表该Cache Bloock上的数据已经被更新过,但是还没有写到内存里。而「已失效」状态,表示的是这个CacheBlock里的数据i已经失效了,不可以读取该状态的数据。</p>
+</li>
+<li><p>「独占」和「共享」状态都代表CacheBlock里的数据是干净的的,也就是说,这个时候CacheBlock里的数据和内存里面的数据是一致性的。</p>
+</li>
+<li><p>「独占」和「共享」的差别在于,独占状态的时候,数据只存储在一个CPU核心的Cache里,而其他CPU核心Cache没有该数据。这个时候,如果要向独占的Cache写数据,就可以直接自由地写入,而不需要通知其他CPU核心,因为只有你这有这个数据,就不存在缓存一致性的问题了,于是就可以随便操作该数据。</p>
+</li>
+<li><p>在「独占」状态下的数据,如果有其他核心从内存读取了相同的数据到各自的Cache,那么这个时候,独占状态下的数据就会变成共享状态。那么,「共享」状态代表着相同的数据在多个CPU核心的Cache里都有,所以当我们要更新Cache里面的数据的时候,不能直接修改,而是要先向所有的其他CPU核心广播一个请求,要求先把其他核心的Cache中对应的Cache Line标记为「无效」状态,然后再更新新当前Cache里面的数据。</p>
+</li>
+</ol>
+<p><img   src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-2.png" ></p>
+<p>我们举个具体的例子来看看这四个状态的转换:</p>
+<ol>
+<li><p>当A号CPU核心从内存读取变量i的值,数据被缓存在A号CPU核心自己的Cache里面,此时其他CPU核心的Cache没有缓存该数据,于是标记CacheLine状态为「独占」,此时其Cache中的数据与内存是一致的;</p>
+</li>
+<li><p>然后B号CPU核心也从内存读取了变量i的值,此时会发送消息给其他CPU核心,由于A号CPU核心已经缓存了该数据,所以在这个时候,A和B核心缓存了相同的数据,Cache Line的状态就会变成「共享」</p>
+</li>
+<li><p>当A号CPU核心要修改Cache中i变量的值,发现数据对应的Cache Line的状态是共享状态,则要向所有的其他CPU核心广播一个请求,要求先把其他核心的Cache中对应的Cache Line标记为「无效」状态,然后A号CPU核心才更新Cache里面的数据,同时标记Cache Line为「已修改」状态,此时Cache中的数据就与内存不一致了。</p>
+</li>
+<li><p>如果A号CPU核心继续修改Cache中i变量的值.,由于此时的Cache Line是「已修改」状态,因此不需要给其他CPU核心发送消息,直接更新数据即可。</p>
+</li>
+<li><p>如果A号CPU核心的Cache里的i变量对应的CacheLine要被替换,发现Cache Line状态是「已修改」状态,就会在替换前先把数据同步到内存。</p>
+</li>
+</ol>
+<p>可以发现当Cache Line状态是「已修改」或者「独占」状态时,修改更新其数据不需要发送广播给其他CPU核心,这在一定程度上减少了总线带宽压力。</p>
+<p><img   src="/2026/03/19/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7-image-3.png" ></p>
+<h1 id="七、参考"><a href="#七、参考" class="headerlink" title="七、参考"></a>七、参考</h1><p><a class="link"   target="_blank" rel="noopener" href="https://www.xiaolincoding.com/os/1/_hardware/cpu/_mesi.html#mesi-%E5%8D%8F%E8%AE%AE" >https://www.xiaolincoding.com/os/1\_hardware/cpu\_mesi.html#mesi-%E5%8D%8F%E8%AE%AE<i class="fas fa-external-link-alt"></i></a></p>
+
+                    
+                </div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/CPU-Cache/">CPU Cache</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/08/17/UnityShader%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%A4%8D%E6%9D%82%E5%85%89%E7%85%A7/"
+                                   title="UnityShader学习笔记--复杂光照"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">UnityShader学习笔记--复杂光照</span>
+                                        <span class="post-nav-item">Next posts</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2026
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Keep Team</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+
+    <!-- tablet toc -->
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+
+<!-- lazyload -->
+
+
+<div class="">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+
+        <!-- copyright-info -->
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+</body>
+</html>
