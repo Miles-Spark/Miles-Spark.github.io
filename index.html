@@ -141,7 +141,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -150,7 +150,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -167,6 +167,155 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/27/CPU%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8Ca-1-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://picx.zhimg.com/v2-e23e2883c26855db1534ce359f2b0efd_r.jpg">
+      <meta itemprop="name" content="miles">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miles's Blog">
+      <meta itemprop="description" content="人生不止是旷野">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Miles's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/03/27/CPU%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8Ca-1-1/" class="post-title-link" itemprop="url">CPU是如何执行a=1+1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-03-27 10:32:09 / 修改时间：02:35:15" itemprop="dateCreated datePublished" datetime="2026-03-27T10:32:09Z">2026-03-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1>一、图灵机</h1>
+<p>要想知道程序执行的原理,我们可以先从「图灵机」说起,图灵的基本思想是用机器来模拟人们用纸笔进</p>
+<p>行数学运算的过程,而且还定义了计算机由哪些部分组成,程序又是如何执行的。</p>
+<p>图灵机的基本组成如下:</p>
+<p>1.有一条「纸带」,纸带由一个个连续的格子组成,每个格子可可以写入字符,纸带就好比内存,而纸带上</p>
+<p>的格子的字符就好比内存中的数据或程序;</p>
+<p>2.有一个「读写头」,读写头可以读取纸带上任意格子的字符,也可可以把字符写入到纸带的格子;</p>
+<p>读写头上有一些部件,比如存储单元、控制单元以及运算单元:1、存储单元用于存放数据;2、控制</p>
+<p>单元用于识别字符是数据还是指令,以及控制程序的流程等;3、运算单元用于执行运算指令;</p>
+<p>知道了图灵机的组成后,我们以简单数学运算的1+2作为例子,来看看它是怎么执行这行代码的。</p>
+<p>1.首先,用读写头把「1、2、+」这3个字符分别写入到纸带上的3个格子,然后读写头先停在1字符</p>
+<p>对应的格子上;</p>
+<p>2.接着,读写头读入1到存储设备中,这个存储设备称为图灵机的状态;</p>
+<p>3.然后读写头向右移动一个格,用同样的方式把2读入到图灵机的状态,于是现在图灵机的状态中存储</p>
+<p>这两个连续的数字,1和2;</p>
+<p>4.读写头再往右移动一个格,就会碰到+号,读写头读到+号后后,将+号传输给「控制单元」,控制单</p>
+<p>元发现是一个+号而不是数字,所以没有存入到状态中,因为+号是运算符指令,作用是加和目前</p>
+<p>的状态,于是通知「运算单元」工作。运算单元收到要加和状态中的值的通知后,就会把状态中的1</p>
+<p>和2读入并计算,再将计算的结果3存放到状态中;</p>
+<p>5.最后,运算单元将结果返回给控制单元,控制单元将结果传偷给读写头,读写头向右移动,把结果3</p>
+<p>写入到纸带的格子中;</p>
+<h1>二、冯诺依曼模型</h1>
+<p>1945年冯诺依曼和其他科学家遵从图灵机的设计提出了计算机的实现方式 冯诺依曼模型。</p>
+<p>冯诺依曼模型定义计算机基本结构为5个部分,分别是运算器、控制器、存储器、输入设备、输出设备。接下来要重点介绍下cpu和总线</p>
+<p><strong>Cpu</strong></p>
+<p>中央处理器也就cpu,cpu有32位和64位之分，表示的cpu的位宽，区别在于一次运行的数据大小不同，32位一次可以计算4个字节，64位一次可以计算8个字节。</p>
+<p>CPU内部还有一些组件,常见的有寄存器、控制单元和逻辑运算单元等。其中,控制单元负责控制CPU</p>
+<p>工作,逻辑运算单元负责计算,而寄存器可以分为多种类,每种寄存器的功能又不尽相同。</p>
+<p>CPU中的寄存器主要作用是存储计算时的数据,你可能好奇为什么有了内存还需要寄存器?原因很简单,</p>
+<p>因为内存离CPU太远了,而寄存器就在CPU里,还紧挨着着控制单元和逻辑运算单元,自然计算时速度会</p>
+<p>很快。</p>
+<p><strong>常见的寄存器种类</strong>:</p>
+<p>1.通用寄存器,用来存放需要进行运算的数据,比如需要进行加和运算的两个数据。</p>
+<p>2.程序计数器,用来存储CPU要执行下一条指令「所在的内存地址」,注意不是存储了下一条要执行的指</p>
+<p>令,此时指令还在内存中,程序计数器只是存储了下一条指令「的地址」。</p>
+<p>3.指令寄存器,用来存放当前正在执行的指令,也就是指令本身,指令被执行完成之前,指令都存储在这</p>
+<p>里。</p>
+<p><strong>总线</strong></p>
+<p>总线是用于CPU和内存以及其他设备之间的通信,总线可分为3种:</p>
+<p>1.地址总线,用于指定CPU将要操作的内存地址;</p>
+<p>2.数据总线,用于读写内存的数据;</p>
+<p>3.控制总线,用于发送和接收信号,比如中断、设备复位等信号号,CPU收到信号后自然进行响应,这时</p>
+<p>也需要控制总线;</p>
+<h1><strong>三、程序执行的基本过程</strong></h1>
+<p>在前面,我们知道了程序在图灵机的执行过程,接下来我们来看看看程序在冯诺依曼模型上是怎么执行的。</p>
+<p>程序实际上是一条一条指令,所以程序的运行过程就是把每一条指令一步一步的执行起来,负责执行指令</p>
+<p>的就是CPU了。</p>
+<p><img src="./CPU%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8Ca=1+1-image.png" alt=""></p>
+<p>那CPU执行程序的过程如下:</p>
+<ol>
+<li>第一步,CPU读取「程序计数器」的值,这个值是指令的内存地址,然后CPU的「控制单元」操作</li>
+</ol>
+<p>「地址总线」指定需要访问的内存地址,接着通知内存设备准备备数据,数据准备好后通过「数据总线</p>
+<p>将指令数据传给CPU,CPU收到内存传来的数据后,将这个指令数据存入到「指令寄存器」。</p>
+<ul>
+<li>第二步,「程序计数器」的值自增,表示指向下一条指令。这个个自增的大小,由CPU的位宽决定,比如</li>
+</ul>
+<p>32位的CPU,指令是4个字节,需要4个内存地址存放,因此「程序计数器」的值会自增4;</p>
+<ul>
+<li>第三步,CPU分析「指令寄存器」中的指令,确定指令的类型和参数,如果是计算类型的指令,就把</li>
+</ul>
+<p>指令交给「逻辑运算单元」运算;如果是存储类型的指令,则交由「控制单元」执行;</p>
+<p>CPU从程序计数器读取指令、到执行、再到下一条指令,这个过程会不断循环,直到程序执行结束,这个</p>
+<p>不断循环的过程被称为CPU的指令周期。现代CPU都是用流水线的方式来执行指令，一个流水线分为四个阶段分别是</p>
+<p><img src="./CPU%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8Ca=1+1-image-1.png" alt=""></p>
+<p>四个阶段的具体含义:</p>
+<p>1.CPU通过程序计数器读取对应内存地址的指令,这个部分称为Fetch(取得指令);</p>
+<p>2.CPU对指令进行解码,解码成操作信号和地址以及操作数，这个部分称为Decode(指令译码);</p>
+<p>3.CPU执行指令,这个部分称为Execution(执行指令);</p>
+<p>4.CPU将计算结果存回寄存器或者将寄存器的值存入内存,这个部分称为Store(数据回写);</p>
+<h1><strong>四、a=1+1执行的具体过程</strong></h1>
+<p>知道了基本的程序执行过程后,接下来分析a=1+2执行过程。CPU是不认识a=1+1这个字符串,这些字符串只是方便我们程序员认识,要想这段程序能跑起来,还需要把整个程序翻译成汇编语言的程序,这个过程称为编译成汇编代码。对于汇编代码还需要翻译成机器码cpu才能看得懂。</p>
+<p>在编译的过程中 a=1+1 会被编译器翻译成四条指令存放在内存中，分别是</p>
+<p>1.load指令将数据1装入到寄存器r0</p>
+<p>2.load指令将第二个数据1装入到寄存器r1</p>
+<p>3.add指令将r0和r1的数据相加,并把结果存放到寄存器R2</p>
+<p>4.store指令将数据存回a变量的地址中</p>
+<p>接下来就是cpu通过程序计数器获取指令的内存地址，然后通过地址总线找到内存对应位置的指令，再通过数据总线将指令数据传回到指令寄存器中；紧接着程序计数器开始自增指向下一条指令；马上cpu中的控制器去判断指令的类型，如果指令的类型是计算类型，就控制器就通知运算器开始计算，如果是存储类型的指令则交给控制器处理；最后通过四轮这样的处理在变量a中就得到了想要的数值。</p>
+<h1>五、参考</h1>
+<p><a target="_blank" rel="noopener" href="https://www.xiaolincoding.com/os/1%5C_hardware/how%5C_cpu%5C_run.html">https://www.xiaolincoding.com/os/1\_hardware/how\_cpu\_run.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
